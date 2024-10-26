@@ -53,6 +53,7 @@ dependencies {
     implementation(libs.firebase.database)
     //ViewModel
     implementation (libs.androidx.lifecycle.viewmodel.ktx)
+    implementation (libs.androidx.fragment.ktx)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

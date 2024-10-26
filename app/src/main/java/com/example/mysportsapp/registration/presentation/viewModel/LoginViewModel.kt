@@ -8,14 +8,8 @@ import kotlinx.coroutines.launch
 
 class LoginViewModel(private val loginInUserUseCase: LoginUserUseCase) : ViewModel() {
 
-    fun loginUser(userDataModel: UserDataModel, onSuccess: () -> Unit, onError: (String) -> Unit) {
-        viewModelScope.launch {
-            try {
-                loginInUserUseCase.execute(userDataModel)
-                onSuccess()
-            } catch (e: Exception) {
-                onError(e.message ?: "Unknown error")
-            }
-        }
+    suspend fun loginUser(email:String, password:String) {
+        val userDataModel = UserDataModel(email, password, "")
+        loginInUserUseCase.execute(userDataModel)
     }
 }

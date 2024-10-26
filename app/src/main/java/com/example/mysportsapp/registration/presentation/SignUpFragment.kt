@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.example.mysportsapp.MainActivity
 import com.example.mysportsapp.R
 import com.example.mysportsapp.databinding.FragmentSignUpBinding
@@ -15,7 +16,7 @@ import com.example.mysportsapp.registration.data.UserDataModel
 import com.example.mysportsapp.registration.data.UserRepositoryImpl
 import com.example.mysportsapp.registration.domain.SignUpUserUseCase
 import com.example.mysportsapp.registration.presentation.viewModel.SignUpViewModel
-
+import kotlinx.coroutines.launch
 
 class SignUpFragment : Fragment() {
 
@@ -33,37 +34,27 @@ class SignUpFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initializeViewModel()
 
         binding.signUpBtn.setOnClickListener {
-            if (!areFieldsEmpty()) {
-                registerUser()
-            } else {
-                Toast.makeText(requireContext(), "All fields are required", Toast.LENGTH_LONG)
-                    .show()
-            }
+            registerUser()
         }
 
         binding.backButton.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
-
     }
 
     private fun registerUser() {
-        val userDataModel = UserDataModel(getEmail(), getPassword(), getUsername())
-
-        viewModel.registerUser(userDataModel, {
-            startActivity(Intent(requireActivity(), MainActivity::class.java))
-        }, { error ->
-            Toast.makeText(requireContext(), "Error: $error", Toast.LENGTH_LONG).show()
-        })
-    }
-
-    private fun initializeViewModel() {
-        val userRepository = UserRepositoryImpl()
-        val registerUserUseCase = SignUpUserUseCase(userRepository)
-        viewModel = SignUpViewModel(registerUserUseCase)
+        if (areFieldsEmpty()) {
+            showToast("All fields are required")
+        } else {
+            lifecycleScope.launch {
+                viewModel.registerUser(getEmail(), getUsername(), getPassword())
+                startActivity(Intent(requireActivity(), MainActivity::class.java))
+            }
+        }
     }
 
     private fun setUi() {
@@ -72,9 +63,16 @@ class SignUpFragment : Fragment() {
         setPasswordEditTextSettings()
     }
 
-    private fun areFieldsEmpty(): Boolean {
-        return getEmail().isEmpty() || getUsername().isEmpty() || getPassword().isEmpty()
+    private fun initializeViewModel() {
+        val userRepository = UserRepositoryImpl()
+        val signUpUserUseCase = SignUpUserUseCase(userRepository)
+        viewModel = SignUpViewModel(signUpUserUseCase)
     }
+
+    private fun areFieldsEmpty(): Boolean {
+        return getEmail().isEmpty() || getPassword().isEmpty() || getUsername().isEmpty()
+    }
+
 
     private fun setPasswordEditTextSettings() {
         with(binding.passwordLinear) {
@@ -103,6 +101,10 @@ class SignUpFragment : Fragment() {
     private fun getEmail(): String = binding.emailLinear.getText()
     private fun getUsername(): String = binding.usernameLinear.getText()
     private fun getPassword(): String = binding.passwordLinear.getText()
+    private fun showToast(text: String) {
+        Toast.makeText(requireContext(), text, Toast.LENGTH_LONG)
+            .show()
+    }
 
     companion object {
         fun newInstance() = SignUpFragment()
