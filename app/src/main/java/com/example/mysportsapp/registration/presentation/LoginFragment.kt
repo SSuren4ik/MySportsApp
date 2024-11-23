@@ -63,9 +63,7 @@ class LoginFragment : Fragment() {
 
     private suspend fun errorMessage() {
         viewModel.errorMessage.collect { errorMessage ->
-            if (!errorMessage.isNullOrEmpty()) {
-                showToast(errorMessage)
-            }
+            showToast(errorMessage)
         }
     }
 
