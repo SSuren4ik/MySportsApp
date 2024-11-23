@@ -12,10 +12,9 @@ import androidx.lifecycle.lifecycleScope
 import com.example.mysportsapp.MainActivity
 import com.example.mysportsapp.R
 import com.example.mysportsapp.databinding.FragmentSignUpBinding
-import com.example.mysportsapp.registration.data.UserDataModel
 import com.example.mysportsapp.registration.data.UserRepositoryImpl
 import com.example.mysportsapp.registration.domain.SignUpUserUseCase
-import com.example.mysportsapp.registration.presentation.viewModel.SignUpViewModel
+import com.example.mysportsapp.registration.presentation.viewmodel.SignUpViewModel
 import kotlinx.coroutines.launch
 
 class SignUpFragment : Fragment() {

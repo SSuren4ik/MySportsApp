@@ -1,10 +1,8 @@
-package com.example.mysportsapp.registration.presentation.viewModel
+package com.example.mysportsapp.registration.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.mysportsapp.registration.data.UserDataModel
 import com.example.mysportsapp.registration.domain.SignUpUserUseCase
-import kotlinx.coroutines.launch
 
 class SignUpViewModel(private val signUpUserUseCase: SignUpUserUseCase) : ViewModel() {
 

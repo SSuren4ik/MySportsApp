@@ -1,7 +1,6 @@
 package com.example.mysportsapp.registration.data
 
 import com.google.firebase.auth.AuthResult
-import kotlinx.coroutines.tasks.await
 
 interface Storage {
 

@@ -1,5 +1,6 @@
 package com.example.mysportsapp.registration.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import android.view.LayoutInflater
@@ -8,12 +9,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.example.mysportsapp.MainActivity
 import com.example.mysportsapp.R
 import com.example.mysportsapp.databinding.FragmentLoginBinding
-import com.example.mysportsapp.registration.data.UserDataModel
 import com.example.mysportsapp.registration.data.UserRepositoryImpl
 import com.example.mysportsapp.registration.domain.LoginUserUseCase
-import com.example.mysportsapp.registration.presentation.viewModel.LoginViewModel
+import com.example.mysportsapp.registration.presentation.viewmodel.LoginViewModel
 import kotlinx.coroutines.launch
 
 class LoginFragment : Fragment() {
@@ -45,12 +46,25 @@ class LoginFragment : Fragment() {
         }
 
         binding.loginBtn.setOnClickListener {
-            if (!areFieldsEmpty()) {
-                lifecycleScope.launch {
-                    viewModel.loginUser(getEmail(), getPassword())
-                }
-            } else {
-                showToast("All fields are required")
+            viewModel.loginUser(getEmail(), getPassword())
+        }
+
+        lifecycleScope.launch {
+            errorMessage()
+            onLoginSuccess()
+        }
+    }
+
+    private suspend fun onLoginSuccess() {
+        viewModel.onLoginSuccess.collect {
+            startActivity(Intent(requireActivity(), MainActivity::class.java))
+        }
+    }
+
+    private suspend fun errorMessage() {
+        viewModel.errorMessage.collect { errorMessage ->
+            if (!errorMessage.isNullOrEmpty()) {
+                showToast(errorMessage)
             }
         }
     }
@@ -64,10 +78,6 @@ class LoginFragment : Fragment() {
     private fun setUi() {
         setEmailEditTextSettings()
         setPasswordEditTextSettings()
-    }
-
-    private fun areFieldsEmpty(): Boolean {
-        return getEmail().isEmpty() || getPassword().isEmpty()
     }
 
     private fun setPasswordEditTextSettings() {

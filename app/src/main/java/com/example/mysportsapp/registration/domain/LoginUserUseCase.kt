@@ -8,5 +8,4 @@ class LoginUserUseCase(private val repository: UserRepositoryInterface) {
     suspend fun execute(dataModel: UserDataModel): AuthResult {
         return repository.signInUser(dataModel)
     }
-
 }

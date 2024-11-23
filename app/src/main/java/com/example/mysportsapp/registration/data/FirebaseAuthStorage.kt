@@ -1,14 +1,17 @@
 package com.example.mysportsapp.registration.data
 
+import android.util.Log
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.tasks.await
 
 class FirebaseAuthStorage : Storage {
 
     private val firebaseAuth = FirebaseAuth.getInstance()
-    private val firebaseDatabase = FirebaseDatabase.getInstance().reference
+    private val firebaseDatabase =
+        FirebaseDatabase.getInstance("https://mysports-b52fe-default-rtdb.europe-west1.firebasedatabase.app").reference
 
     override suspend fun signIn(userDataModel: UserDataModel): AuthResult {
         return firebaseAuth.signInWithEmailAndPassword(userDataModel.email, userDataModel.password)
@@ -16,7 +19,9 @@ class FirebaseAuthStorage : Storage {
     }
 
     override suspend fun registerUser(userDataModel: UserDataModel): AuthResult {
-        return firebaseAuth.createUserWithEmailAndPassword(userDataModel.email, userDataModel.password)
+        return firebaseAuth.createUserWithEmailAndPassword(
+            userDataModel.email,
+            userDataModel.password)
             .await()
     }
 
@@ -25,6 +30,7 @@ class FirebaseAuthStorage : Storage {
             "email" to userDataModel.email,
             "username" to userDataModel.userName
         )
+        Log.d("Log", FirebaseDatabase.getInstance().reference.toString())
         firebaseDatabase.child("Users").child(uid).setValue(userInfo).await()
     }
 }

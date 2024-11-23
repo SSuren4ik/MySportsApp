@@ -11,10 +11,8 @@ class EditTextWithIcon(
     attrs: AttributeSet? = null,
 ) : LinearLayout(context, attrs) {
 
-
     private var binding: ViewDataInputBinding =
         ViewDataInputBinding.inflate(LayoutInflater.from(context), this, true)
-
 
     fun setImageResource(resId: Int) {
         binding.iconImage.setImageResource(resId)
@@ -31,5 +29,4 @@ class EditTextWithIcon(
     fun getText(): String {
         return binding.editText.text.toString()
     }
-
 }
