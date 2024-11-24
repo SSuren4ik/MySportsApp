@@ -3,6 +3,7 @@ package com.example.mysportsapp.registration.presentation
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -51,6 +52,8 @@ class LoginFragment : Fragment() {
 
         lifecycleScope.launch {
             errorMessage()
+        }
+        lifecycleScope.launch {
             onLoginSuccess()
         }
     }

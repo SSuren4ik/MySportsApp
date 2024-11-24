@@ -1,5 +1,6 @@
 package com.example.mysportsapp.registration.presentation.viewmodel
 
+import android.accounts.AuthenticatorException
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mysportsapp.registration.data.UserDataModel
@@ -33,6 +34,8 @@ class LoginViewModel(private val loginInUserUseCase: LoginUserUseCase) : ViewMod
                         _errorMessage.emit("Проблемы с соединением")
                     } catch (e: FirebaseTooManyRequestsException) {
                         _errorMessage.emit("Слишком много запросов, пожалуста, подождите")
+                    } catch (e: AuthenticatorException) {
+                        _errorMessage.emit("Неизвестная ошибка")
                     }
                 } else {
                     _errorMessage.emit("Неверный формат почты")

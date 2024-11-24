@@ -37,22 +37,30 @@ class SignUpFragment : Fragment() {
         initializeViewModel()
 
         binding.signUpBtn.setOnClickListener {
-            registerUser()
+            viewModel.registerUser(getEmail(), getUsername(), getPassword())
         }
 
         binding.backButton.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
+
+        lifecycleScope.launch {
+            onSuccessSignUp()
+        }
+        lifecycleScope.launch {
+            errorMessage()
+        }
     }
 
-    private fun registerUser() {
-        if (areFieldsEmpty()) {
-            showToast("All fields are required")
-        } else {
-            lifecycleScope.launch {
-                viewModel.registerUser(getEmail(), getUsername(), getPassword())
-                startActivity(Intent(requireActivity(), MainActivity::class.java))
-            }
+    private suspend fun errorMessage() {
+        viewModel.errorMessage.collect { errorMessage ->
+            showToast(errorMessage)
+        }
+    }
+
+    private suspend fun onSuccessSignUp() {
+        viewModel.onSignUpSuccess.collect {
+            startActivity(Intent(requireActivity(), MainActivity::class.java))
         }
     }
 
@@ -67,11 +75,6 @@ class SignUpFragment : Fragment() {
         val signUpUserUseCase = SignUpUserUseCase(userRepository)
         viewModel = SignUpViewModel(signUpUserUseCase)
     }
-
-    private fun areFieldsEmpty(): Boolean {
-        return getEmail().isEmpty() || getPassword().isEmpty() || getUsername().isEmpty()
-    }
-
 
     private fun setPasswordEditTextSettings() {
         with(binding.passwordLinear) {
