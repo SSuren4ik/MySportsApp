@@ -1,4 +1,4 @@
-package com.example.mysportsapp.views
+package com.example.mysportsapp.customViews
 
 import android.content.Context
 import android.util.AttributeSet
