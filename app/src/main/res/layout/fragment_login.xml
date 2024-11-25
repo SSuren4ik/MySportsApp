@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/white"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context="mysportsapp.registration.presentation.LoginFragment">
 
     <ImageView
@@ -29,7 +29,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_image" />
 
-    <com.example.mysportsapp.customViews.EditTextWithIcon
+    <mysportsapp.customViews.EditTextWithIcon
         android:id="@+id/email_linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_tittle" />
 
-    <com.example.mysportsapp.customViews.EditTextWithIcon
+    <mysportsapp.customViews.EditTextWithIcon
         android:id="@+id/password_linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

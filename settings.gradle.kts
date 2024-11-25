@@ -9,6 +9,9 @@ pluginManagement {
         }
         mavenCentral()
         gradlePluginPortal()
+        maven {
+            url = uri("https://maven.google.com/")
+        }
     }
 }
 dependencyResolutionManagement {
@@ -21,4 +24,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "MySportsApp"
 include(":app")
- 

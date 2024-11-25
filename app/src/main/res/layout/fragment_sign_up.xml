@@ -41,7 +41,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_image" />
 
-    <com.example.mysportsapp.customViews.EditTextWithIcon
+    <mysportsapp.customViews.EditTextWithIcon
         android:id="@+id/email_linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_tittle" />
 
-    <com.example.mysportsapp.customViews.EditTextWithIcon
+    <mysportsapp.customViews.EditTextWithIcon
         android:id="@+id/username_linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email_linear" />
 
-    <com.example.mysportsapp.customViews.EditTextWithIcon
+    <mysportsapp.customViews.EditTextWithIcon
         android:id="@+id/password_linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

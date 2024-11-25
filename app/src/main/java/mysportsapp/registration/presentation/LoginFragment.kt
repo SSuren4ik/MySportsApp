@@ -3,6 +3,7 @@ package mysportsapp.registration.presentation
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.mysportsapp.R
 import com.example.mysportsapp.databinding.FragmentLoginBinding
 import kotlinx.coroutines.launch
-import mysportsapp.MainActivity
+import mysportsapp.main.MainActivity
 import mysportsapp.registration.data.UserRepositoryImpl
 import mysportsapp.registration.domain.LoginUserUseCase
 import mysportsapp.registration.presentation.viewmodel.LoginViewModel
@@ -59,6 +60,7 @@ class LoginFragment : Fragment() {
 
     private suspend fun onLoginSuccess() {
         viewModel.onLoginSuccess.collect {
+            Log.d("Log", "onLoginSuccess")
             startActivity(Intent(requireActivity(), MainActivity::class.java))
         }
     }

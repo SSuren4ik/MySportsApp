@@ -1,6 +1,7 @@
 package mysportsapp.registration.presentation.viewmodel
 
 import android.accounts.AuthenticatorException
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.FirebaseNetworkException
