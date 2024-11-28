@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -16,26 +18,30 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "MAPKIT_API_KEY", getMapkitApiKey())
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+
     kotlinOptions {
         jvmTarget = "17"
     }
 
     buildFeatures {
+        buildConfig = true
         viewBinding = true
     }
 }
@@ -57,8 +63,15 @@ dependencies {
     implementation(libs.firebase.database)
 
     implementation(libs.maps.mobile)
+    implementation(libs.androidx.navigation.fragment)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+}
+
+fun getMapkitApiKey(): String {
+    val properties = Properties()
+    file("../local.properties").inputStream().use { properties.load(it) }
+    return properties.getProperty("MAPKIT_API_KEY", "")
 }
