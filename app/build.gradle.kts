@@ -57,13 +57,10 @@ dependencies {
 
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
-
-    implementation(libs.firebase.auth)
-    implementation(libs.firebase.analytics)
-    implementation(libs.firebase.database)
-
     implementation(libs.maps.mobile)
     implementation(libs.androidx.navigation.fragment)
+
+    implementation(project(":registration"))
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

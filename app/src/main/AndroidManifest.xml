@@ -16,10 +16,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MySportsApp">
         <activity
-            android:name="mysportsapp.registration.presentation.RegistrationActivity"
+            android:name="mysportsapp.main.MainActivity"
             android:exported="false" />
         <activity
-            android:name="mysportsapp.main.MainActivity"
+            android:name="com.registration.presentation.RegistrationActivity"
+            android:exported="false" />
+        <activity
+            android:name="mysportsapp.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
