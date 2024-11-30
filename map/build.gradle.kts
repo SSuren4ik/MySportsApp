@@ -1,31 +1,31 @@
+import java.util.Properties
+
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
-    namespace = "com.example.mysportsapp"
-    compileSdk = 35
+    namespace = "com.map"
+    compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.mysportsapp"
         minSdk = 34
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
+        buildConfigField("String", "MAPKIT_API_KEY", getMapkitApiKey())
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
             )
         }
     }
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -42,22 +42,18 @@ android {
 }
 
 dependencies {
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(libs.androidx.constraintlayout)
-    implementation(libs.androidx.activity)
-
-    implementation(libs.lifecycle.viewmodel.ktx)
-
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
-    implementation(libs.androidx.navigation.fragment)
-
-    implementation(project(":registration"))
-    implementation(project(":map"))
-
+    api(libs.maps.mobile)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+}
+
+fun getMapkitApiKey(): String {
+    val properties = Properties()
+    file("../local.properties").inputStream().use { properties.load(it) }
+    return properties.getProperty("MAPKIT_API_KEY", "")
 }

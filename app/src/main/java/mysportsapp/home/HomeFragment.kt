@@ -20,6 +20,9 @@ class HomeFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance() = HomeFragment()
+        fun newInstance(): HomeFragment {
+            return HomeFragment()
+        }
     }
+
 }

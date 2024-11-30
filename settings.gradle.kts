@@ -26,3 +26,4 @@ dependencyResolutionManagement {
 rootProject.name = "MySportsApp"
 include(":app")
 include(":registration")
+include(":map")

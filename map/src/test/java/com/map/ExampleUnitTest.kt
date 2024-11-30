@@ -1,4 +1,4 @@
-package mysportsapp.example.mysportsapp
+package com.map
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

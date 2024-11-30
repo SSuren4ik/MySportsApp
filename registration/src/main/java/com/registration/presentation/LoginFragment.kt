@@ -2,7 +2,6 @@ package com.registration.presentation
 
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,7 +44,8 @@ class LoginFragment : Fragment() {
         }
 
         binding.loginBtn.setOnClickListener {
-            viewModel.loginUser(getEmail(), getPassword())
+//            viewModel.loginUser(getEmail(), getPassword())
+            viewModel.loginUser("Test@mail.ru", "Test123")
         }
 
         lifecycleScope.launch {
@@ -61,6 +61,7 @@ class LoginFragment : Fragment() {
             (activity as RegistrationActivity).onRegistrationComplete()
         }
     }
+
     private suspend fun errorMessage() {
         viewModel.errorMessage.collect { errorMessage ->
             showToast(errorMessage)

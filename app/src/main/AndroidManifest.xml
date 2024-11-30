@@ -19,9 +19,6 @@
             android:name="mysportsapp.main.MainActivity"
             android:exported="false" />
         <activity
-            android:name="com.registration.presentation.RegistrationActivity"
-            android:exported="false" />
-        <activity
             android:name="mysportsapp.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
