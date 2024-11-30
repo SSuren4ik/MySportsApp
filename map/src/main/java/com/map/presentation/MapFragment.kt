@@ -1,7 +1,6 @@
 package com.map.presentation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +18,7 @@ class MapFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding = FragmentMapBinding.inflate(inflater, container, false)
         return binding.root
@@ -28,49 +27,51 @@ class MapFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        permissionManager = PermissionManager(
-            context = requireContext(),
-            onPermissionGranted = { initializeMap() },
-            onPermissionDenied = { navigateToPreviousFragment() }
-        )
-        permissionManager.initialize(this)
-        handleLocationPermission()
+        initializePermissionManager()
     }
 
-    private fun handleLocationPermission() {
-        permissionManager.checkAndRequestLocationPermission()
+    private fun initializePermissionManager() {
+        permissionManager = PermissionManager(context = requireContext(),
+            onPermissionGranted = { initializeMap() },
+            onPermissionDenied = { navigateToPreviousFragment() }).apply {
+            initialize(this@MapFragment)
+            checkAndRequestLocationPermission()
+        }
     }
 
     private fun initializeMap() {
         MapKitFactory.initialize(requireContext())
         mapView = binding.mapview
         mapView.onStart()
-        Log.d("MapFragment", "Map initialized")
     }
 
     private fun navigateToPreviousFragment() {
-        Toast.makeText(
-            requireContext(),
-            "Разрешение на доступ к локации не предоставлено.",
-            Toast.LENGTH_LONG
-        ).show()
+        showToast("Location permission not granted.")
         parentFragmentManager.popBackStack()
-        Log.d("MapFragment", "Navigated to previous fragment due to missing permission")
     }
 
     override fun onStart() {
         super.onStart()
-        if (permissionManager.hasLocationPermission() && ::mapView.isInitialized) {
+        if (isMapInitialized()) {
             mapView.onStart()
             MapKitFactory.getInstance().onStart()
         }
     }
 
     override fun onStop() {
-        if (::mapView.isInitialized) {
+        if (isMapInitialized()) {
             mapView.onStop()
             MapKitFactory.getInstance().onStop()
         }
         super.onStop()
+    }
+
+    private fun showToast(text: String) {
+        Toast.makeText(requireContext(), text, Toast.LENGTH_LONG)
+            .show()
+    }
+
+    private fun isMapInitialized(): Boolean {
+        return ::mapView.isInitialized
     }
 }
