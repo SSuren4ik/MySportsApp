@@ -1,7 +1,8 @@
-package com.registration.domain
+package com.registration.domain.usecase
 
 import com.google.firebase.auth.AuthResult
-import com.registration.data.UserDataModel
+import com.registration.domain.models.UserDataModel
+import com.registration.domain.repository.UserRepositoryInterface
 
 class LoginUserUseCase(private val repository: UserRepositoryInterface) {
 

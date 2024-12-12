@@ -1,6 +1,7 @@
 package com.registration.data
 
 import com.google.firebase.auth.AuthResult
+import com.registration.domain.models.UserDataModel
 
 interface Storage {
 

@@ -6,8 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.registration.data.UserDataModel
-import com.registration.domain.LoginUserUseCase
+import com.registration.domain.models.UserDataModel
+import com.registration.domain.usecase.LoginUserUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch

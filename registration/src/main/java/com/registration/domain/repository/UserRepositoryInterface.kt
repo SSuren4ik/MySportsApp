@@ -1,7 +1,7 @@
-package com.registration.domain
+package com.registration.domain.repository
 
 import com.google.firebase.auth.AuthResult
-import com.registration.data.UserDataModel
+import com.registration.domain.models.UserDataModel
 
 interface UserRepositoryInterface {
     suspend fun registerUser(userDataModel: UserDataModel): AuthResult

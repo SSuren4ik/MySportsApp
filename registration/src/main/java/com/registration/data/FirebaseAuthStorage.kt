@@ -3,6 +3,7 @@ package com.registration.data
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.registration.domain.models.UserDataModel
 import kotlinx.coroutines.tasks.await
 
 class FirebaseAuthStorage : Storage {

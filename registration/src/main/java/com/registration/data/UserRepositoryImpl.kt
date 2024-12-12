@@ -1,7 +1,8 @@
 package com.registration.data
 
 import com.google.firebase.auth.AuthResult
-import com.registration.domain.UserRepositoryInterface
+import com.registration.domain.models.UserDataModel
+import com.registration.domain.repository.UserRepositoryInterface
 
 class UserRepositoryImpl : UserRepositoryInterface {
     private val firebaseAuthService = FirebaseAuthStorage()

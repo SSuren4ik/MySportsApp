@@ -2,7 +2,6 @@ package com.registration.presentation
 
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.registration.R
 import com.example.registration.databinding.FragmentSignUpBinding
 import com.registration.data.UserRepositoryImpl
-import com.registration.domain.SignUpUserUseCase
+import com.registration.domain.usecase.SignUpUserUseCase
 import com.registration.presentation.viewmodel.SignUpViewModel
 import kotlinx.coroutines.launch
 

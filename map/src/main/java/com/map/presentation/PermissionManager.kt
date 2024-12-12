@@ -1,9 +1,9 @@
 package com.map.presentation
 
 import android.Manifest
-import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
+import android.util.Log
 import androidx.activity.result.ActivityResultCaller
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -56,36 +56,23 @@ class PermissionManager(
     }
 
     private fun shouldShowRequestPermissionRationale(): Boolean {
-        return (context as? ActivityResultCaller)?.let {
-            ActivityCompat.shouldShowRequestPermissionRationale(
-                it as Activity,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            )
-        } ?: false
+        return ActivityCompat.shouldShowRequestPermissionRationale(
+            context as FragmentActivity, Manifest.permission.ACCESS_FINE_LOCATION
+        )
     }
 
     private fun showPermissionRationaleDialog() {
         PermissionRationaleDialog(
-            onPositiveAction = {
-                requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
-            },
-            onNegativeAction = {
-                onPermissionDenied()
-            }
-        ).show(
-            (context as FragmentActivity).supportFragmentManager,
-            PermissionRationaleDialog.TAG
+            onPositiveAction = { requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION) },
+            onNegativeAction = { onPermissionDenied() }).show(
+            (context as FragmentActivity).supportFragmentManager, PermissionRationaleDialog.TAG
         )
     }
 
     private fun showSettingsDialog() {
         PermissionSettingsDialog(
-            onNegativeAction = {
-                onPermissionDenied()
-            }
-        ).show(
-            (context as FragmentActivity).supportFragmentManager,
-            PermissionSettingsDialog.TAG
+            onNegativeAction = { onPermissionDenied() }).show(
+            (context as FragmentActivity).supportFragmentManager, PermissionSettingsDialog.TAG
         )
     }
 }

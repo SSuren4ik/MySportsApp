@@ -6,8 +6,8 @@ import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
-import com.registration.data.UserDataModel
-import com.registration.domain.SignUpUserUseCase
+import com.registration.domain.models.UserDataModel
+import com.registration.domain.usecase.SignUpUserUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch

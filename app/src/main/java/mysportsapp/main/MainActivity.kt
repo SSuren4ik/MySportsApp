@@ -1,6 +1,7 @@
 package mysportsapp.main
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -23,5 +24,25 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
 
         binding.navView.setupWithNavController(navController)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("MainActivity", "onResume")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d("MainActivity", "onStart")
+    }
+
+    override fun onStop() {
+        Log.d("MainActivity", "onStop")
+        super.onStop()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("MainActivity", "onPause")
     }
 }

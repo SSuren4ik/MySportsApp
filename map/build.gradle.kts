@@ -7,10 +7,10 @@ plugins {
 
 android {
     namespace = "com.map"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
-        minSdk = 34
+        minSdk = 26
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -47,6 +47,9 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     api(libs.maps.mobile)
+
+    implementation(libs.lifecycle.viewmodel.ktx)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

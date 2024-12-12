@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.mysportsapp"
-        minSdk = 34
+        minSdk = 26
         versionCode = 1
         versionName = "1.0"
 

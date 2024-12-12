@@ -1,4 +1,4 @@
-package com.registration.data
+package com.registration.domain.models
 
 data class UserDataModel(
     val email: String,
