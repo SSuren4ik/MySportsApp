@@ -1,10 +1,12 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
 }
 
 android {
-    namespace = "com.example.registration"
+    namespace = "com.registration"
     compileSdk = 35
 
     defaultConfig {
@@ -12,6 +14,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+        buildConfigField("String", "FIREBASE_DATABASE_URL", getFirebaseURL())
     }
 
     buildTypes {
@@ -53,4 +56,10 @@ dependencies {
     implementation(libs.firebase.database)
 
     androidTestImplementation(libs.androidx.espresso.core)
+}
+
+fun getFirebaseURL(): String {
+    val properties = Properties()
+    file("../local.properties").inputStream().use { properties.load(it) }
+    return properties.getProperty("FIREBASE_DATABASE_URL", "")
 }

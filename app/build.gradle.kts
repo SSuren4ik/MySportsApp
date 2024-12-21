@@ -56,6 +56,8 @@ dependencies {
 
     implementation(project(":registration"))
     implementation(project(":map"))
+    implementation(libs.firebase.database.ktx)
+    implementation(libs.firebase.auth.ktx)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

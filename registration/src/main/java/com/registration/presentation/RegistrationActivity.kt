@@ -3,8 +3,8 @@ package com.registration.presentation
 import android.app.Activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.registration.R
-import com.example.registration.databinding.ActivityRegistrationBinding
+import com.registration.R
+import com.registration.databinding.ActivityRegistrationBinding
 
 class RegistrationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegistrationBinding

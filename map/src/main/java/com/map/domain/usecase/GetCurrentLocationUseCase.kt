@@ -17,14 +17,10 @@ class GetCurrentLocationUseCase(private val locationManager: LocationManager) {
     ) {
         locationListener = object : LocationListener {
             override fun onLocationUpdated(location: Location) {
-                Log.d("GetCurrentLocationUseCase", "onLocationUpdated: ${location.position}")
                 onLocationUpdated(location)
             }
 
             override fun onLocationStatusUpdated(locationStatus: LocationStatus) {
-                if (locationStatus != LocationStatus.AVAILABLE) {
-                    Log.w("GetCurrentLocationUseCase", "Location unavailable")
-                }
             }
         }
 

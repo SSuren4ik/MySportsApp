@@ -14,6 +14,7 @@ class SplashActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
                 startActivity(Intent(this, MainActivity::class.java))
+                finish()
             }
         }
 

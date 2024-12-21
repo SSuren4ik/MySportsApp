@@ -39,20 +39,16 @@ class MapFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initializePermissionManager()
+        initializeMap()
         initializeViewModel()
 
-        mapKit.createUserLocationLayer(mapView.mapWindow).isVisible = true
+        initializePermissionManager()
 
         lifecycleScope.launch {
-            viewModel.locationFlow.collect { location ->
-                if (location != null) {
-                    moveCameraToLocation(location)
-                }
-            }
+            moveCameraToStartLocation()
         }
 
-        binding.myLocationButton.setOnClickListener {
+        binding.currentLocationImageView.setOnClickListener {
             val location = viewModel.getLastKnownLocation()
             if (location != null) {
                 moveCameraToLocation(location)
@@ -67,12 +63,13 @@ class MapFragment : Fragment() {
         val locationManager = repository.getLocationManager()
         val locationUseCase = GetCurrentLocationUseCase(locationManager)
         viewModel = MapViewModel(locationUseCase)
-        viewModel.startLocationUpdates()
     }
 
     private fun initializePermissionManager() {
         permissionManager = PermissionManager(context = requireContext(),
-            onPermissionGranted = { initializeMap() },
+            onPermissionGranted = {
+                startLocationTracking()
+            },
             onPermissionDenied = { navigateToPreviousFragment() }).apply {
             initialize(this@MapFragment)
             checkAndRequestLocationPermission()
@@ -102,6 +99,19 @@ class MapFragment : Fragment() {
     private fun navigateToPreviousFragment() {
         showToast("Location permission not granted.")
         parentFragmentManager.popBackStack()
+    }
+
+    private suspend fun moveCameraToStartLocation() {
+        viewModel.locationFlow.collect { location ->
+            if (location != null) {
+                moveCameraToLocation(location)
+            }
+        }
+    }
+
+    private fun startLocationTracking() {
+        viewModel.startLocationUpdates()
+        mapKit.createUserLocationLayer(mapView.mapWindow).isVisible = true
     }
 
     override fun onStart() {

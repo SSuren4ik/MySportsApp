@@ -3,6 +3,7 @@ package com.registration.data
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.registration.BuildConfig
 import com.registration.domain.models.UserDataModel
 import kotlinx.coroutines.tasks.await
 
@@ -10,7 +11,7 @@ class FirebaseAuthStorage : Storage {
 
     private val firebaseAuth = FirebaseAuth.getInstance()
     private val firebaseDatabase =
-        FirebaseDatabase.getInstance("https://mysports-b52fe-default-rtdb.europe-west1.firebasedatabase.app").reference
+        FirebaseDatabase.getInstance(BuildConfig.FIREBASE_DATABASE_URL).reference
 
     override suspend fun signIn(userDataModel: UserDataModel): AuthResult {
         return firebaseAuth.signInWithEmailAndPassword(userDataModel.email, userDataModel.password)
