@@ -1,6 +1,5 @@
 package com.map.domain.usecase
 
-import android.util.Log
 import com.yandex.mapkit.location.FilteringMode
 import com.yandex.mapkit.location.Location
 import com.yandex.mapkit.location.LocationListener
@@ -37,7 +36,6 @@ class GetCurrentLocationUseCase(private val locationManager: LocationManager) {
 
     fun stopLocationUpdates() {
         if (::locationListener.isInitialized) {
-            Log.d("GetCurrentLocationUseCase", "stopLocationUpdates")
             locationManager.unsubscribe(locationListener)
         }
     }

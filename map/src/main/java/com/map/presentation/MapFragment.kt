@@ -1,7 +1,6 @@
 package com.map.presentation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,7 +40,6 @@ class MapFragment : Fragment() {
 
         initializeMap()
         initializeViewModel()
-
         initializePermissionManager()
 
         lifecycleScope.launch {
@@ -80,7 +78,6 @@ class MapFragment : Fragment() {
         if (isMapInitialized()) {
             return
         }
-        Log.d("MapFragment", "initializeMap")
         MapKitFactory.initialize(requireContext())
         mapKit = MapKitFactory.getInstance()
         mapView = binding.mapview
@@ -88,7 +85,6 @@ class MapFragment : Fragment() {
     }
 
     private fun moveCameraToLocation(location: Location) {
-        Log.d("MapFragment", "moveCameraToLocation: $location")
         mapView.mapWindow.map.move(
             CameraPosition(location.position, 14.0f, 0.0f, 0.0f),
             Animation(Animation.Type.SMOOTH, 1f),
